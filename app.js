@@ -57,34 +57,13 @@ app.use(
     extended: true,
   })
 );
-
+// Main:
 app.get("/", (req, res) => {
   // if (req.query.k === "adminkishor")
   res.status(200).send(index);
   // else res.status(200).send("<h1>You do not have access to this site</h1>");
 });
-
-// app.get("/view", (req, res) => {
-//   res.status(200).send(replaceCodeViewer(codeviewer, fileData));
-// });
-
-// app.get("/dsa", async (req, res) => {
-//   const fileName = req.query.file;
-//   await getFile("dsa", fileName.toUpperCase());
-//   res.redirect("/view");
-// });
-
-app.get("/java", async (req, res) => {
-  const fileName = req.query.file;
-  fileData = await getFile("java", fileName.toUpperCase());
-  res.status(200).send(replaceCodeViewer(codeviewer, fileData));
-});
-
-app.get("/dsa", async (req, res) => {
-  const fileName = req.query.file;
-  fileData = await getFile("dsa", fileName.toUpperCase());
-  res.status(200).send(replaceCodeViewer(codeviewer, fileData));
-});
+// Form:
 app.post("/", (req, res) => {
   const data = {
     id: req.body.lab + "-" + req.body.title.toLowerCase(),
@@ -95,7 +74,19 @@ app.post("/", (req, res) => {
   push(req.body.lab, data);
   res.redirect("/");
 });
-
-app.listen(8000, () => {
+// Java:
+app.get("/java", async (req, res) => {
+  const fileName = req.query.file;
+  fileData = await getFile("java", fileName.toUpperCase());
+  res.status(200).send(replaceCodeViewer(codeviewer, fileData));
+});
+// DSA:
+app.get("/dsa", async (req, res) => {
+  const fileName = req.query.file;
+  fileData = await getFile("dsa", fileName.toUpperCase());
+  res.status(200).send(replaceCodeViewer(codeviewer, fileData));
+});
+// Listen:
+app.listen(process.env.PORT || 8000, () => {
   console.log("Listening to requests!");
 });
