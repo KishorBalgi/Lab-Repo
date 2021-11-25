@@ -8,6 +8,7 @@ const {
   getFirestore,
   Timestamp,
   FieldValue,
+  getDocs,
 } = require("firebase-admin/firestore");
 
 var serviceAccount = require("G:/Kishor/Projects/Firebase/service-account/serviceAccountKey.json");
@@ -17,24 +18,13 @@ admin.initializeApp({
 });
 // Database:
 const db = getFirestore();
-// const doctw = db
-//   .collection("third-sem")
-//   .doc("labs")
-//   .collection("java")
-//   .doc("TW2");
-// let data = "";
-// const getTW = async () => {
-//   const snapshot = await doctw.get();
-
-//   if (snapshot.exists) {
-//     data = snapshot.data();
-//   } else {
-//     return error;
-//   }
-// };
-// getTW();
 
 const labs = db.collection("third-sem").doc("labs");
+const labDoc = db
+  .collection("third-sem")
+  .doc("labs")
+  .collection("java")
+  .getDocs();
 
 // Get file:
 let fileData;
@@ -70,6 +60,7 @@ app.use(
 
 app.get("/", (req, res) => {
   res.status(200).send(index);
+  console.log(labDoc);
 });
 
 app.get("/view", (req, res) => {
