@@ -78,13 +78,15 @@ app.post("/", (req, res) => {
 app.get("/java", async (req, res) => {
   const fileName = req.query.file;
   fileData = await getFile("java", fileName.toUpperCase());
-  res.status(200).send(replaceCodeViewer(codeviewer, fileData));
+  if (fileData === "error") res.status(404).send("<h1>FILE NOT FOUND!</h1>");
+  else res.status(200).send(replaceCodeViewer(codeviewer, fileData));
 });
 // DSA:
 app.get("/dsa", async (req, res) => {
   const fileName = req.query.file;
   fileData = await getFile("dsa", fileName.toUpperCase());
-  res.status(200).send(replaceCodeViewer(codeviewer, fileData));
+  if (fileData === "error") res.status(404).send("<h1>FILE NOT FOUND!</h1>");
+  else res.status(200).send(replaceCodeViewer(codeviewer, fileData));
 });
 // Listen:
 app.listen(process.env.PORT || 8000, () => {

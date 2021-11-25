@@ -29,17 +29,13 @@ const labs = doc(col, "labs");
 
 // Get file:
 exports.getFile = async (lab, file) => {
-  try {
-    const labCol = collection(labs, lab);
-    const fileSnap = doc(labCol, file);
-    const data = await getDoc(fileSnap);
-    if (data.exists) {
-      const fileData = data.data();
-      return fileData;
-    } else throw error;
-  } catch {
-    return error;
-  }
+  const labCol = collection(labs, lab);
+  const fileSnap = doc(labCol, file);
+  const data = await getDoc(fileSnap);
+  if (data.exists) {
+    const fileData = data.data();
+    return fileData;
+  } else return "error";
 };
 // Write To Store:
 exports.push = async (lab, data) => {
