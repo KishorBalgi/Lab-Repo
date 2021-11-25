@@ -30,6 +30,7 @@
         width: 70vw;
         height: 100vh;
         margin: 0 auto;
+        padding: 60px 0 0 0;
       }
       .btn-repo {
         background-color: rgb(148, 148, 148);
@@ -57,18 +58,22 @@
       .code-box {
         padding: 20px 0;
         display: flex;
-        align-items: center;
+        flex-direction: column;
+        width: 80%;
+        align-items: flex-start;
       }
       .code-box label {
+        padding: 10px 20px;
         color: #fff;
-        padding: 0 30px 0 0;
       }
       .code-box input {
+        width: 100%;
         border: none;
         border-radius: 5px;
         height: 30px;
       }
       .code-box textarea {
+        width: 100%;
         border-radius: 5px;
       }
       .btn-submit {
@@ -76,9 +81,27 @@
         font-size: 25px;
         background-color: blueviolet;
       }
+      nav {
+        display: none;
+        position: fixed;
+        /* display: flex; */
+        align-items: flex-end;
+        justify-content: flex-end;
+        height: 55px;
+        width: 100vw;
+        padding: 0 100px;
+      }
+      .login {
+        padding: 5px 20px;
+        background-color: blueviolet;
+        color: #fff;
+      }
     </style>
   </head>
   <body>
+    <nav>
+      <button class="login">Login</button>
+    </nav>
     <div class="container">
       <h1>Lab Repo</h1>
 

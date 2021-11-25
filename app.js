@@ -1,42 +1,40 @@
 // Firebase:
-const {
-  initializeApp,
-  applicationDefault,
-  cert,
-} = require("firebase-admin/app");
-const {
-  getFirestore,
-  Timestamp,
-  FieldValue,
-  getDocs,
-} = require("firebase-admin/firestore");
+// const { initializeApp } = require("firebase/app");
+// const { getFirestore } = require("firebase/firestore");
 
-var serviceAccount = require("G:/Kishor/Projects/Firebase/service-account/serviceAccountKey.json");
-var admin = require("firebase-admin");
-admin.initializeApp({
-  credential: admin.credential.cert(serviceAccount),
-});
-// Database:
-const db = getFirestore();
+// const {
+//   initializeApp,
+//   applicationDefault,
+//   cert,
+// } = require("firebase-admin/app");
+// const {
+//   getFirestore,
+//   Timestamp,
+//   FieldValue,
+//   getDocs,
+// } = require("firebase-admin/firestore");
 
-const labs = db.collection("third-sem").doc("labs");
-const labDoc = db
-  .collection("third-sem")
-  .doc("labs")
-  .collection("java")
-  .getDocs();
+// var serviceAccount = require("G:/Kishor/Projects/Firebase/service-account/serviceAccountKey.json");
+// var admin = require("firebase-admin");
+// admin.initializeApp({
+//   credential: admin.credential.cert(serviceAccount),
+// });
+// // Database:
+// const db = getFirestore(firebaseapp);
 
-// Get file:
-let fileData;
-const getFile = async (lab, file) => {
-  const data = await labs.collection(lab).doc(file).get();
-  fileData = await data.data();
-};
-// Write To Store:
-const push = async (lab, data) => {
-  const repo = labs.collection(lab).doc(data.title);
-  const res = await repo.set(data, { merge: true });
-};
+// const labs = db.collection("third-sem").doc("labs");
+
+// // Get file:
+// let fileData;
+// const getFile = async (lab, file) => {
+//   const data = await labs.collection(lab).doc(file).get();
+//   fileData = await data.data();
+// };
+// // Write To Store:
+// const push = async (lab, data) => {
+//   const repo = labs.collection(lab).doc(data.title);
+//   const res = await repo.set(data, { merge: true });
+// };
 // Template files:
 const fs = require("fs");
 const index = fs.readFileSync(`${__dirname}/templates/index.html`, "utf-8");
@@ -44,7 +42,9 @@ const codeviewer = fs.readFileSync(
   `${__dirname}/templates/codeviewer.html`,
   "utf-8"
 );
-
+// Firestore:
+const { getFile, push } = require("./modules/firebase");
+let fileData;
 // Modules:
 const replaceCodeViewer = require("./modules/codeviewer");
 // Server:
@@ -59,26 +59,32 @@ app.use(
 );
 
 app.get("/", (req, res) => {
+  // if (req.query.k === "adminkishor")
   res.status(200).send(index);
-  console.log(labDoc);
+  // else res.status(200).send("<h1>You do not have access to this site</h1>");
 });
 
-app.get("/view", (req, res) => {
+// app.get("/view", (req, res) => {
+//   res.status(200).send(replaceCodeViewer(codeviewer, fileData));
+// });
+
+// app.get("/dsa", async (req, res) => {
+//   const fileName = req.query.file;
+//   await getFile("dsa", fileName.toUpperCase());
+//   res.redirect("/view");
+// });
+
+app.get("/java", async (req, res) => {
+  const fileName = req.query.file;
+  fileData = await getFile("java", fileName.toUpperCase());
   res.status(200).send(replaceCodeViewer(codeviewer, fileData));
 });
 
 app.get("/dsa", async (req, res) => {
   const fileName = req.query.file;
-  await getFile("dsa", fileName.toUpperCase());
-  res.redirect("/view");
+  fileData = await getFile("dsa", fileName.toUpperCase());
+  res.status(200).send(replaceCodeViewer(codeviewer, fileData));
 });
-
-app.get("/java", async (req, res) => {
-  const fileName = req.query.file;
-  await getFile("java", fileName.toUpperCase());
-  res.redirect("/view");
-});
-
 app.post("/", (req, res) => {
   const data = {
     id: req.body.lab + "-" + req.body.title.toLowerCase(),
