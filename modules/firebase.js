@@ -40,6 +40,6 @@ exports.getFile = async (lab, file) => {
 // Write To Store:
 exports.push = async (lab, data) => {
   const labCol = collection(labs, lab);
-  const repo = doc(labCol, data.title);
+  const repo = doc(labCol, data.title.toUpperCase());
   await setDoc(repo, data, { merge: true });
 };
