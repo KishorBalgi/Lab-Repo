@@ -1,14 +1,17 @@
 // Template files:
+const bcrypt = require("bcrypt");
 const fs = require("fs");
 const bodyParser = require("body-parser");
 const index = fs.readFileSync(`${__dirname}/templates/index.html`, "utf-8");
+const login = fs.readFileSync(`${__dirname}/templates/login.html`, "utf-8");
 const codeviewer = fs.readFileSync(
   `${__dirname}/templates/codeviewer.html`,
   "utf-8"
 );
 // Firestore:
-const { getFile, push } = require("./modules/firebase");
+const { getFile, push, checkCred } = require("./modules/firebase");
 let fileData;
+let admin = { username: "guest", password: "guest" };
 // Modules:
 const replaceCodeViewer = require("./modules/codeviewer");
 // Server:
@@ -22,10 +25,25 @@ app.use(
 );
 // Main:
 app.get("/", (req, res) => {
-  res.status(200).send(index);
+  res.status(200).send(login);
 });
-// Form:
+
 app.post("/", (req, res) => {
+  admin = req.body;
+  res.redirect("/addlabdata");
+});
+
+// Add data:
+app.get("/addlabdata", async (req, res) => {
+  if (await checkCred(admin.username, admin.password)) {
+    return res.status(200).send(index);
+  } else {
+    return res.status(400).send("<h2>Cannot GET the requested URL</h2>");
+  }
+});
+
+// Form:
+app.post("/add", (req, res) => {
   const data = {
     id: req.body.lab + "-" + req.body.title.toLowerCase(),
     title: req.body.title,

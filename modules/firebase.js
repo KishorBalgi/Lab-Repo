@@ -1,3 +1,5 @@
+// BCrypt:
+const bcrypt = require("bcrypt");
 // Firebase:
 const { error } = require("console");
 const { initializeApp } = require("firebase/app");
@@ -26,7 +28,8 @@ const app = initializeApp(firebaseConfig);
 const db = getFirestore();
 const col = collection(db, "third-sem");
 const labs = doc(col, "labs");
-
+const admin = collection(db, "admin");
+const login = doc(admin, "login");
 // Get file:
 exports.getFile = async (lab, file) => {
   const labCol = collection(labs, lab);
@@ -42,4 +45,15 @@ exports.push = async (lab, data) => {
   const labCol = collection(labs, lab);
   const repo = doc(labCol, data.title.toUpperCase());
   await setDoc(repo, data, { merge: true });
+};
+
+exports.checkCred = async (username, password) => {
+  const loginSnap = await getDoc(login);
+  const loginCred = loginSnap.data();
+  if (
+    (await bcrypt.compare(password, loginCred.password)) &&
+    username === loginCred.username
+  ) {
+    return true;
+  } else return false;
 };
