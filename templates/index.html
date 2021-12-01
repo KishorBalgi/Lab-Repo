@@ -82,9 +82,8 @@
         background-color: blueviolet;
       }
       nav {
-        display: none;
         position: fixed;
-        /* display: flex; */
+        display: flex;
         align-items: flex-end;
         justify-content: flex-end;
         height: 55px;
@@ -100,7 +99,7 @@
   </head>
   <body>
     <nav>
-      <button class="login">Login</button>
+      <a href="/logout"><button class="login">Logout</button></a>
     </nav>
     <div class="container">
       <h1>Lab Repo</h1>
@@ -149,20 +148,5 @@
         <button class="btn-submit" type="submit">Upload</button>
       </form>
     </div>
-    <!-- <script>
-      const labJAVA = document.querySelector(".lab-java");
-      const labDSA = document.querySelector(".lab-dsa");
-      const title = document.getElementById("title");
-      const code = document.getElementById("code");
-      const submit = document.querySelector(".btn-submit");
-      let doc = "java";
-      // submit.addEventListener("click", () => {
-      //   data = {
-      //     title: title.value,
-      //     code: code.value,
-      //     timestamp: new Date(),
-      //   };
-      // });
-    </script> -->
   </body>
 </html>

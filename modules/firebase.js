@@ -57,3 +57,14 @@ exports.checkCred = async (username, password) => {
     return true;
   } else return false;
 };
+
+// Get Docs:
+exports.getFileList = async (lab) => {
+  const data = [];
+  const labDoc = collection(labs, lab);
+  const querySnap = await getDocs(labDoc);
+  querySnap.docs.forEach((e) => {
+    data.push(e.data().title);
+  });
+  return data;
+};
