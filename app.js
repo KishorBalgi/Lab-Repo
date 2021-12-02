@@ -13,7 +13,13 @@ const codeviewer = fs.readFileSync(
   "utf-8"
 );
 // Firestore:
-const { getFile, push, checkCred, getFileList } = require("./modules/firebase");
+const {
+  getFile,
+  push,
+  checkCred,
+  getFileList,
+  getLabList,
+} = require("./modules/firebase");
 let fileData;
 let admin = { username: "guest", password: "guest" };
 // Modules:
@@ -36,11 +42,11 @@ app.get("/", (req, res) => {
 
 app.post("/", (req, res) => {
   admin = req.body;
-  res.redirect("/addlabdata");
+  res.redirect("/add");
 });
 
 // Add data:
-app.get("/addlabdata", async (req, res) => {
+app.get("/add", async (req, res) => {
   if (await checkCred(admin.username, admin.password)) {
     return res.status(200).send(index);
   } else {
@@ -57,8 +63,20 @@ app.post("/add", (req, res) => {
     timestamp: Date.now(),
   };
   push(req.body.lab, data);
-  res.redirect("/");
+  res.redirect(`/labs/${req.body.lab}/${req.body.title}`);
 });
+// Get labs:
+app.get("/labs", async (req, res) => {
+  const labslist = await getLabList();
+  res.send(replaceExplorer("Labs", labslist, explorer));
+});
+// Lab Files:
+app.get("/labs/:lab", async (req, res) => {
+  const lab = req.params.lab;
+  const filelist = await getFileList(lab);
+  res.status(200).send(replaceExplorer(lab, filelist, explorer));
+});
+
 // Code viewer:
 app.get("/labs/:lab/:file", async (req, res) => {
   const { lab, file } = req.params;
@@ -72,12 +90,7 @@ app.get("/logout", (req, res) => {
   admin = { username: "guest", password: "guest" };
   res.redirect("/");
 });
-// Lab Files:
-app.get("/labs/:lab", async (req, res) => {
-  const lab = req.params.lab;
-  const filelist = await getFileList(lab);
-  res.status(200).send(replaceExplorer(lab, filelist, explorer));
-});
+
 // Listen:
 app.listen(process.env.PORT || 8000, () => {
   console.log("Listening to requests!");

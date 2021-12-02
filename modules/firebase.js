@@ -10,6 +10,7 @@ const {
   getDoc,
   setDoc,
   getDocs,
+  getCollections,
 } = require("firebase/firestore");
 const fs = require("fs");
 const firebaseConfig = {
@@ -30,6 +31,7 @@ const col = collection(db, "third-sem");
 const labs = doc(col, "labs");
 const admin = collection(db, "admin");
 const login = doc(admin, "login");
+
 // Get file:
 exports.getFile = async (lab, file) => {
   const labCol = collection(labs, lab);
@@ -66,5 +68,11 @@ exports.getFileList = async (lab) => {
   querySnap.docs.forEach((e) => {
     data.push(e.data().title);
   });
+  return data;
+};
+
+// Get Lab list:
+exports.getLabList = async () => {
+  const data = await (await getDoc(labs)).data().labs;
   return data;
 };
