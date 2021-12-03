@@ -1,7 +1,7 @@
 module.exports = (lab, filelist, explorer) => {
   const f = filelist
     .map(
-      (t) => `<a href="/labs/${lab !== "Labs" ? `${lab}/` : `${t}`}"
+      (t) => `<a href="/labs/${lab !== "Labs" ? `${lab}/${t}` : `${t}`}"
     ><div class="file">
       <p>${t.toUpperCase()}</p>
     </div></a
