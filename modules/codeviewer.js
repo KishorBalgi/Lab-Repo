@@ -1,5 +1,6 @@
 module.exports = (temp, data) => {
-  const date=new Date(data.timestamp.seconds*1000)
+  // const date=new Date(data.timestamp.seconds*1000);
+  const date=new Date(data.timestamp.seconds);
   let code = data.code.replace(/</g, "&lt;");
   code = code.replace(/>/g, "&gt;");
 
