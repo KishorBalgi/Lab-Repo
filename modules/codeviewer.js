@@ -3,7 +3,8 @@ module.exports = (temp, data) => {
   code = code.replace(/>/g, "&gt;");
 
   let output = temp.replace(/{%TITLE%}/g, data.id.toUpperCase());
-  output = output.replace(/{%TIME%}/g, Date(data.timestamp));
+  output = output.replace(/{%TIME%}/g, data.timestamp.toDate());
   output = output.replace(/{%CODE%}/g, code);
   return output;
 };
+// Date(data.timestamp)
