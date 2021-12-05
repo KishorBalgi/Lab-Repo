@@ -60,7 +60,7 @@ app.post("/add", (req, res) => {
     id: req.body.lab + "-" + req.body.title.toLowerCase(),
     title: req.body.title,
     code: req.body.code,
-    timestamp: Date.now(),
+    timestamp:new Date(),
   };
   push(req.body.lab, data);
   res.redirect(`/labs/${req.body.lab}/${req.body.title}`);
