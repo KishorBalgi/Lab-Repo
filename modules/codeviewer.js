@@ -7,4 +7,3 @@ module.exports = (temp, data) => {
   output = output.replace(/{%CODE%}/g, code);
   return output;
 };
-// Date(data.timestamp)
