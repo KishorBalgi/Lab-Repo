@@ -42,25 +42,25 @@ app.get("/", (req, res) => {
 });
 
 // Login:
-app.get("/login", (req, res) => {
+app.get("/adminlogin", (req, res) => {
   res.status(200).send(login);
 });
 
-app.post("/login", (req, res) => {
+app.post("/adminlogin", (req, res) => {
   admin = req.body;
-  res.redirect("/add");
+  res.redirect("/adddatatorepository");
 });
 // Add data:
-app.get("/add", async (req, res) => {
+app.get("/adddatatorepository", async (req, res) => {
   if (await checkCred(admin.username, admin.password)) {
     return res.status(200).send(index);
   } else {
-    return res.redirect("/login");
+    return res.redirect("/adminlogin");
   }
 });
 
 // Form:
-app.post("/add", (req, res) => {
+app.post("/adddatatorepository", (req, res) => {
   const data = {
     id: req.body.lab + "-" + req.body.title.toLowerCase(),
     title: req.body.title,
