@@ -35,22 +35,27 @@ app.use(
   })
 );
 app.use(express.json());
+
 // Main:
 app.get("/", (req, res) => {
+  res.redirect("/labs");
+});
+
+// Login:
+app.get("/login", (req, res) => {
   res.status(200).send(login);
 });
 
-app.post("/", (req, res) => {
+app.post("/login", (req, res) => {
   admin = req.body;
   res.redirect("/add");
 });
-
 // Add data:
 app.get("/add", async (req, res) => {
   if (await checkCred(admin.username, admin.password)) {
     return res.status(200).send(index);
   } else {
-    return res.status(400).send("<h2>Cannot GET the requested URL</h2>");
+    return res.redirect("/login");
   }
 });
 
@@ -60,7 +65,7 @@ app.post("/add", (req, res) => {
     id: req.body.lab + "-" + req.body.title.toLowerCase(),
     title: req.body.title,
     code: req.body.code,
-    timestamp:new Date(),
+    timestamp: new Date(),
   };
   push(req.body.lab, data);
   res.redirect(`/labs/${req.body.lab}/${req.body.title}`);
