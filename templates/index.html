@@ -30,7 +30,7 @@
         width: 70vw;
         height: 100vh;
         margin: 0 auto;
-        padding: 60px 0 0 0;
+        padding: 130px 0 0 0;
       }
       .btn-repo {
         background-color: rgb(148, 148, 148);
@@ -50,10 +50,9 @@
         border-radius: 10px;
       }
       .options {
-        width: 50%;
-        display: flex;
-        align-items: center;
-        justify-content: space-evenly;
+        width: 100%;
+        padding: 5px;
+        border-radius: 5px;
       }
       .code-box {
         padding: 20px 0;
@@ -95,6 +94,36 @@
         background-color: blueviolet;
         color: #fff;
       }
+      @media only screen and (max-width: 1300px) {
+        .container {
+          width: 80vw;
+        }
+        .code-box {
+          width: 90%;
+        }
+      }
+      @media only screen and (max-width: 700px) {
+        .container {
+          width: 90vw;
+        }
+        .code-box {
+          width: 95%;
+        }
+      }
+      @media only screen and (max-width: 500px) {
+        .container {
+          width: 95vw;
+        }
+        .repo-form {
+          padding: 10px;
+        }
+        .code-box {
+          width: 90%;
+        }
+        nav {
+          padding: 0 20px;
+        }
+      }
     </style>
   </head>
   <body>
@@ -105,7 +134,16 @@
       <h1>Lab Repo</h1>
 
       <form action="/add" method="POST" class="repo-form">
-        <div class="options">
+        <div class="code-box">
+          <label>Lab:</label>
+          <select name="lab" class="options">
+            <option value="java">Java</option>
+            <option value="dsa">DSA</option>
+            <option value="web">Web</option>
+          </select>
+        </div>
+
+        <!-- <div class="options">
           <div>
             <label class="btn-repo" for="java">JAVA</label>
             <input
@@ -136,7 +174,7 @@
               type="radio"
             />
           </div>
-        </div>
+        </div> -->
         <div class="code-box">
           <label for="title">Title:</label>
           <input name="title" value="" id="title" type="text" />

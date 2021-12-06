@@ -17,6 +17,36 @@
         background-color: black;
         font-size: 20px;
       }
+      nav {
+        /* position: fixed; */
+        display: flex;
+        align-items: flex-end;
+        justify-content: flex-end;
+        height: 40px;
+        width: 100vw;
+        padding: 0 100px;
+        top: 0;
+      }
+      .btn-lab {
+        padding: 5px 20px;
+        border-radius: 5px;
+        background-color: blueviolet;
+        color: #fff;
+      }
+      ::-webkit-scrollbar-thumb {
+        background: blueviolet;
+        border-radius: 10px;
+      }
+
+      ::-webkit-scrollbar-track {
+        border-radius: 10px;
+        background: rgb(131, 131, 131);
+      }
+
+      ::-webkit-scrollbar {
+        width: 5px;
+        height: 7px;
+      }
       .container {
         display: flex;
         flex-direction: column;
@@ -42,10 +72,27 @@
         border: 1px solid #fff;
         margin: 10px;
         border-radius: 10px;
+        overflow-x: scroll;
+      }
+      @media only screen and (max-width: 1200px) {
+        .container {
+          width: 90vw;
+        }
+      }
+      @media only screen and (max-width: 600px) {
+        .container {
+          width: 98vw;
+        }
+        nav {
+          padding: 0 20px;
+        }
       }
     </style>
   </head>
   <body>
+    <nav>
+      <a href="/labs"><button class="btn-lab">Labs</button></a>
+    </nav>
     <div class="container">
       <h4 class="title">{%TITLE%}</h4>
       <h2 class="time">{%TIME%}</h2>

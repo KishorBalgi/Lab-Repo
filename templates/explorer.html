@@ -47,6 +47,8 @@
         width: 90%;
         display: grid;
         grid-template-columns: repeat(8, auto);
+        grid-row-gap: 20px;
+        justify-items: center;
         margin: 0 auto;
       }
 
@@ -82,6 +84,32 @@
       }
       .title {
         color: blueviolet;
+      }
+      @media only screen and (max-width: 1200px) {
+        .file-grid {
+          grid-template-columns: repeat(6, auto);
+        }
+      }
+      @media only screen and (max-width: 800px) {
+        .file-grid {
+          grid-template-columns: repeat(5, auto);
+        }
+        .container {
+          width: 80vw;
+        }
+      }
+      @media only screen and (max-width: 600px) {
+        .file-grid {
+          grid-template-columns: repeat(4, auto);
+        }
+      }
+      @media only screen and (max-width: 480px) {
+        .file-grid {
+          grid-template-columns: repeat(3, auto);
+        }
+        .container {
+          width: 90vw;
+        }
       }
     </style>
   </head>
