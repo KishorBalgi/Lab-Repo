@@ -4,22 +4,22 @@ module.exports = (temp, data) => {
   code = code.replace(/>/g, "&gt;");
   // Highlightings
   code = code.replace(
-    /\b(import|class|interface|abstract|println|print)/g,
+    /\b(import|class|interface|abstract|println|print)\b/g,
     (x) => `<span class="h-blue">${x}</span>`
   );
 
   code = code.replace(
-    /\b(private|protected|public|static|new|java|Math|System)/g,
+    /\b(private|protected|public|static|new|java|Math|System)\b/g,
     (x) => `<span class="h-brown">${x}</span>`
   );
 
   code = code.replace(
-    /\b(int|float|double|void|String|char|long|short)/g,
+    /\b(int|float|double|void|String|char|long|short)\b/g,
     (x) => `<span class="h-green">${x}</span>`
   );
 
   code = code.replace(
-    /\b(if|else|for|while|do|switch)/g,
+    /\b(if|else|for|while|do|switch)\b/g,
     (x) => `<span class="h-violet">${x}</span>`
   );
 
