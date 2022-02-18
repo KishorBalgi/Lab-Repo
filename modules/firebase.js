@@ -52,10 +52,9 @@ exports.push = async (lab, data) => {
 exports.checkCred = async (username, password) => {
   const loginSnap = await getDoc(login);
   const loginCred = loginSnap.data();
-  if (
-    (await bcrypt.compare(password, loginCred.password)) &&
-    username === loginCred.username
-  ) {
+  // (await bcrypt.compare(password, loginCred.password)) &&
+  //   username === loginCred.username
+  if (username === loginCred.username && password === loginCred.password) {
     return true;
   } else return false;
 };
