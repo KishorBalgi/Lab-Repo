@@ -54,7 +54,11 @@ exports.checkCred = async (username, password) => {
   const loginCred = loginSnap.data();
   // (await bcrypt.compare(password, loginCred.password)) &&
   //   username === loginCred.username
-  if (username === loginCred.username && password === loginCred.password) {
+  //   if (username === loginCred.username && password === loginCred.password)
+  if (
+    (await bcrypt.compare(password, loginCred.password)) &&
+    username === loginCred.username
+  ) {
     return true;
   } else return false;
 };
